@@ -8,7 +8,7 @@ export PATH
 #   Intro:  http://koolshare.cn/forum-72-1.html
 #===============================================================================================
 program_name="frps"
-version="1.8.6"
+version="1.8.7"
 str_program_dir="/usr/local/${program_name}"
 program_init="/etc/init.d/${program_name}"
 program_config_file="frps.ini"
@@ -18,13 +18,13 @@ str_install_shell="https://raw.githubusercontent.com/qxzg/frp-install-shell/mast
 shell_update(){
     fun_clangcn "clear"
     echo "Check updates for shell..."
-    remote_shell_version=`wget --no-check-certificate -qO- ${str_install_shell} | sed -n '/'^version'/p' | cut -d\" -f2`
+    remote_shell_version=`wget  -qO- ${str_install_shell} | sed -n '/'^version'/p' | cut -d\" -f2`
     if [ ! -z ${remote_shell_version} ]; then
         if [[ "${version}" != "${remote_shell_version}" ]];then
             echo -e "${COLOR_GREEN}Found a new version,update now!!!${COLOR_END}"
             echo
             echo -n "Update shell ..."
-            if ! wget -N --no-check-certificate -qO $0 ${str_install_shell}; then
+            if ! wget -N  -qO $0 ${str_install_shell}; then
                 echo -e " [${COLOR_RED}failed${COLOR_END}]"
                 echo
                 exit 1
@@ -168,7 +168,7 @@ fun_randstr(){
 }
 fun_get_version(){
     rm -f ${ver_file}
-    if ! wget --no-check-certificate -qO ${ver_file} ${program_version_link}; then
+    if ! wget  -qO ${ver_file} ${program_version_link}; then
         echo -e "${COLOR_RED}Failed to download version.sh${COLOR_END}"
     fi
     if [ -s ${ver_file} ]; then
@@ -220,7 +220,7 @@ fun_download_file(){
     # download
     if [ ! -s ${str_program_dir}/${program_name} ]; then
         rm -fr ${program_latest_filename} frp_${FRPS_VER}_linux_${ARCHS}
-        if ! wget --no-check-certificate -q ${program_latest_file_url} -O ${program_latest_filename}; then
+        if ! wget  -q ${program_latest_file_url} -O ${program_latest_filename}; then
             echo -e " ${COLOR_RED}failed${COLOR_END}"
             exit 1
         fi
@@ -585,7 +585,7 @@ fi
     echo " done"
     echo -n "download ${program_init}..."
     if [ ! -s ${program_init} ]; then
-        if ! wget --no-check-certificate -q ${FRPS_INIT} -O ${program_init}; then
+        if ! wget  -q ${FRPS_INIT} -O ${program_init}; then
             echo -e " ${COLOR_RED}failed${COLOR_END}"
             exit 1
         fi
@@ -790,13 +790,13 @@ update_program_server_clang(){
         check_centosversion
         check_os_bit
         fun_get_version
-        remote_init_version=`wget --no-check-certificate -qO- ${FRPS_INIT} | sed -n '/'^version'/p' | cut -d\" -f2`
+        remote_init_version=`wget  -qO- ${FRPS_INIT} | sed -n '/'^version'/p' | cut -d\" -f2`
         local_init_version=`sed -n '/'^version'/p' ${program_init} | cut -d\" -f2`
         install_shell=${strPath}
         if [ ! -z ${remote_init_version} ];then
             if [[ "${local_init_version}" != "${remote_init_version}" ]];then
                 echo "========== Update ${program_name} ${program_init} =========="
-                if ! wget --no-check-certificate ${FRPS_INIT} -O ${program_init}; then
+                if ! wget  ${FRPS_INIT} -O ${program_init}; then
                     echo "Failed to download ${program_name}.init file!"
                     exit 1
                 else
