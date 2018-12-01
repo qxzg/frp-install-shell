@@ -14,7 +14,7 @@ program_init="/etc/init.d/${program_name}"
 program_config_file="frps.ini"
 ver_file="/tmp/.frp_ver.sh"
 program_version_link="https://raw.githubusercontent.com/qxzg/frp-install-shell/master/version.sh"
-str_install_shell=https://raw.githubusercontent.com/qxzg/frp-install-shell/master/install-frps.sh
+str_install_shell="https://raw.githubusercontent.com/qxzg/frp-install-shell/master/install-frps.sh"
 shell_update(){
     fun_clangcn "clear"
     echo "Check updates for shell..."
@@ -29,6 +29,7 @@ shell_update(){
                 echo
                 exit 1
             else
+                chmod +x install-frps.sh
                 echo -e " [${COLOR_GREEN}OK${COLOR_END}]"
                 echo
                 echo -e "${COLOR_GREEN}Please Re-run${COLOR_END} ${COLOR_PINK}$0 ${clang_action}${COLOR_END}"
