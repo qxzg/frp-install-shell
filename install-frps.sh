@@ -24,7 +24,7 @@ shell_update(){
             echo -e "${COLOR_GREEN}Found a new version,update now!!!${COLOR_END}"
             echo
             echo -n "Update shell ..."
-            if ! wget --no-check-certificate -qO $0 ${str_install_shell}; then
+            if ! wget -N --no-check-certificate -qO $0 ${str_install_shell}; then
                 echo -e " [${COLOR_RED}failed${COLOR_END}]"
                 echo
                 exit 1
