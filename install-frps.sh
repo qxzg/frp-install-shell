@@ -8,7 +8,7 @@ export PATH
 #   Intro:  http://koolshare.cn/forum-72-1.html
 #===============================================================================================
 program_name="frps"
-version="1.8.5"
+version="1.8.6"
 str_program_dir="/usr/local/${program_name}"
 program_init="/etc/init.d/${program_name}"
 program_config_file="frps.ini"
@@ -180,12 +180,12 @@ fun_get_version(){
     fi
 }
 fun_getServer(){
-    def_server_url="aliyun"
+    def_server_url="github"
     echo ""
     echo -e "Please select ${program_name} download url:"
     echo -e "[1].aliyun (default)"
     echo -e "[2].github"
-    read -p "Enter your choice (1, 2 or exit. default [${def_server_url}]): " set_server_url
+    read -e -p "Enter your choice (1, 2 or exit. default [${def_server_url}]): " set_server_url
     [ -z "${set_server_url}" ] && set_server_url="${def_server_url}"
     case "${set_server_url}" in
         1|[Aa][Ll][Ii][Yy][Uu][Nn])
@@ -282,7 +282,7 @@ fun_input_bind_port(){
     def_server_port="5443"
     echo ""
     echo -n -e "Please input ${program_name} ${COLOR_GREEN}bind_port${COLOR_END} [1-65535]"
-    read -p "(Default Server Port: ${def_server_port}):" serverport
+    read -e -p "(Default Server Port: ${def_server_port}):" serverport
     [ -z "${serverport}" ] && serverport="${def_server_port}"
     fun_check_port "bind" "${serverport}"
 }
@@ -290,7 +290,7 @@ fun_input_dashboard_port(){
     def_dashboard_port="6443"
     echo ""
     echo -n -e "Please input ${program_name} ${COLOR_GREEN}dashboard_port${COLOR_END} [1-65535]"
-    read -p "(Default dashboard_port: ${def_dashboard_port}):" input_dashboard_port
+    read -e -p "(Default dashboard_port: ${def_dashboard_port}):" input_dashboard_port
     [ -z "${input_dashboard_port}" ] && input_dashboard_port="${def_dashboard_port}"
     fun_check_port "dashboard" "${input_dashboard_port}"
 }
@@ -298,7 +298,7 @@ fun_input_vhost_http_port(){
     def_vhost_http_port="80"
     echo ""
     echo -n -e "Please input ${program_name} ${COLOR_GREEN}vhost_http_port${COLOR_END} [1-65535]"
-    read -p "(Default vhost_http_port: ${def_vhost_http_port}):" input_vhost_http_port
+    read -e -p "(Default vhost_http_port: ${def_vhost_http_port}):" input_vhost_http_port
     [ -z "${input_vhost_http_port}" ] && input_vhost_http_port="${def_vhost_http_port}"
     fun_check_port "vhost_http" "${input_vhost_http_port}"
 }
@@ -306,7 +306,7 @@ fun_input_vhost_https_port(){
     def_vhost_https_port="443"
     echo ""
     echo -n -e "Please input ${program_name} ${COLOR_GREEN}vhost_https_port${COLOR_END} [1-65535]"
-    read -p "(Default vhost_https_port: ${def_vhost_https_port}):" input_vhost_https_port
+    read -e -p "(Default vhost_https_port: ${def_vhost_https_port}):" input_vhost_https_port
     [ -z "${input_vhost_https_port}" ] && input_vhost_https_port="${def_vhost_https_port}"
     fun_check_port "vhost_https" "${input_vhost_https_port}"
 }
@@ -315,7 +315,7 @@ fun_input_log_max_days(){
     def_log_max_days="3"
     echo ""
     echo -e "Please input ${program_name} ${COLOR_GREEN}log_max_days${COLOR_END} [1-${def_max_days}]"
-    read -p "(Default log_max_days: ${def_log_max_days} day):" input_log_max_days
+    read -e -p "(Default log_max_days: ${def_log_max_days} day):" input_log_max_days
     [ -z "${input_log_max_days}" ] && input_log_max_days="${def_log_max_days}"
     fun_check_number "log_max_days" "${def_max_days}" "${input_log_max_days}"
 }
@@ -324,7 +324,7 @@ fun_input_max_pool_count(){
     def_max_pool_count="50"
     echo ""
     echo -e "Please input ${program_name} ${COLOR_GREEN}max_pool_count${COLOR_END} [1-${def_max_pool}]"
-    read -p "(Default max_pool_count: ${def_max_pool_count}):" input_max_pool_count
+    read -e -p "(Default max_pool_count: ${def_max_pool_count}):" input_max_pool_count
     [ -z "${input_max_pool_count}" ] && input_max_pool_count="${def_max_pool_count}"
     fun_check_number "max_pool_count" "${def_max_pool}" "${input_max_pool_count}"
 }
@@ -361,17 +361,17 @@ pre_install_clang(){
         echo "${program_name} dashboard_port: ${set_dashboard_port}"
         echo ""
         def_dashboard_user="admin"
-        read -p "Please input dashboard_user (Default: ${def_dashboard_user}):" set_dashboard_user
+        read -e -p "Please input dashboard_user (Default: ${def_dashboard_user}):" set_dashboard_user
         [ -z "${set_dashboard_user}" ] && set_dashboard_user="${def_dashboard_user}"
         echo "${program_name} dashboard_user: ${set_dashboard_user}"
         echo ""
         def_dashboard_pwd=`fun_randstr 8`
-        read -p "Please input dashboard_pwd (Default: ${def_dashboard_pwd}):" set_dashboard_pwd
+        read -e -p "Please input dashboard_pwd (Default: ${def_dashboard_pwd}):" set_dashboard_pwd
         [ -z "${set_dashboard_pwd}" ] && set_dashboard_pwd="${def_dashboard_pwd}"
         echo "${program_name} dashboard_pwd: ${set_dashboard_pwd}"
         echo ""
         default_token=`fun_randstr 16`
-        read -p "Please input token (Default: ${default_token}):" set_token
+        read -e -p "Please input token (Default: ${default_token}):" set_token
         [ -z "${set_token}" ] && set_token="${default_token}"
         echo "${program_name} token: ${set_token}"
         echo ""
@@ -385,7 +385,7 @@ pre_install_clang(){
         echo "3: error"
         echo "4: debug"
         echo "#####################################################"
-        read -p "Enter your choice (1, 2, 3, 4 or exit. default [1]): " str_log_level
+        read -e -p "Enter your choice (1, 2, 3, 4 or exit. default [1]): " str_log_level
         case "${str_log_level}" in
             1|[Ii][Nn][Ff][Oo])
                 str_log_level="info"
@@ -416,7 +416,7 @@ pre_install_clang(){
         echo "1: enable (default)"
         echo "2: disable"
         echo "#####################################################"
-        read -p "Enter your choice (1, 2 or exit. default [1]): " str_log_file
+        read -e -p "Enter your choice (1, 2 or exit. default [1]): " str_log_file
         case "${str_log_file}" in
             1|[yY]|[yY][eE][sS]|[oO][nN]|[tT][rR][uU][eE]|[eE][nN][aA][bB][lL][eE])
                 str_log_file="./frps.log"
@@ -440,7 +440,7 @@ pre_install_clang(){
         echo "1: enable (default)"
         echo "2: disable"
         echo "#####################################################"
-        read -p "Enter your choice (1, 2 or exit. default [1]): " str_tcp_mux
+        read -e -p "Enter your choice (1, 2 or exit. default [1]): " str_tcp_mux
         case "${str_tcp_mux}" in
             1|[yY]|[yY][eE][sS]|[oO][nN]|[tT][rR][uU][eE]|[eE][nN][aA][bB][lL][eE])
                 set_tcp_mux="true"
@@ -461,7 +461,7 @@ pre_install_clang(){
         echo "1: enable (default)"
         echo "2: disable"
         echo "#####################################################"
-        read -p "Enter your choice (1, 2 or exit. default [1]): " str_kcp
+        read -e -p "Enter your choice (1, 2 or exit. default [1]): " str_kcp
         case "${str_kcp}" in
             1|[yY]|[yY][eE][sS]|[oO][nN]|[tT][rR][uU][eE]|[eE][nN][aA][bB][lL][eE])
                 set_kcp="true"
@@ -650,7 +650,7 @@ uninstall_program_server_clang(){
         echo "============== Uninstall ${program_name} =============="
         str_uninstall="n"
         echo -n -e "${COLOR_YELOW}You want to uninstall?${COLOR_END}"
-        read -p "[y/N]:" str_uninstall
+        read -e -p "[y/N]:" str_uninstall
         case "${str_uninstall}" in
         [yY]|[yY][eE][sS])
         echo ""
@@ -700,12 +700,12 @@ update_config_clang(){
             fi
             if [ -z "${search_dashboard_user}" ] && [ -z "${search_dashboard_pwd}" ];then
                 def_dashboard_user_update="admin"
-                read -p "Please input dashboard_user (Default: ${def_dashboard_user_update}):" set_dashboard_user_update
+                read -e -p "Please input dashboard_user (Default: ${def_dashboard_user_update}):" set_dashboard_user_update
                 [ -z "${set_dashboard_user_update}" ] && set_dashboard_user_update="${def_dashboard_user_update}"
                 echo "${program_name} dashboard_user: ${set_dashboard_user_update}"
                 echo ""
                 def_dashboard_pwd_update=`fun_randstr 8`
-                read -p "Please input dashboard_pwd (Default: ${def_dashboard_pwd_update}):" set_dashboard_pwd_update
+                read -e -p "Please input dashboard_pwd (Default: ${def_dashboard_pwd_update}):" set_dashboard_pwd_update
                 [ -z "${set_dashboard_pwd_update}" ] && set_dashboard_pwd_update="${def_dashboard_pwd_update}"
                 echo "${program_name} dashboard_pwd: ${set_dashboard_pwd_update}"
                 echo ""
@@ -716,7 +716,7 @@ update_config_clang(){
                 echo "1: enable (default)"
                 echo "2: disable"
                 echo "#####################################################"
-                read -p "Enter your choice (1, 2 or exit. default [1]): " str_kcp
+                read -e -p "Enter your choice (1, 2 or exit. default [1]): " str_kcp
                 case "${str_kcp}" in
                     1|[yY]|[yY][eE][sS]|[oO][nN]|[tT][rR][uU][eE]|[eE][nN][aA][bB][lL][eE])
                         set_kcp="true"
@@ -744,7 +744,7 @@ update_config_clang(){
                 echo "1: enable (default)"
                 echo "2: disable"
                 echo "#####################################################"
-                read -p "Enter your choice (1, 2 or exit. default [1]): " str_tcp_mux
+                read -e -p "Enter your choice (1, 2 or exit. default [1]): " str_tcp_mux
                 case "${str_tcp_mux}" in
                     1|[yY]|[yY][eE][sS]|[oO][nN]|[tT][rR][uU][eE]|[eE][nN][aA][bB][lL][eE])
                         set_tcp_mux="true"
