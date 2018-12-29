@@ -23,11 +23,11 @@ wget https://raw.githubusercontent.com/qxzg/frp-install-shell/master/install-frp
 
 ### Uninstall
 ```Bash
-    ./install-frps.sh uninstall
+./install-frps.sh uninstall
 ```
 ### Update
 ```Bash
-    ./install-frps.sh update
+./install-frps.sh update
 ```
 ### 服务器管理
 ```Bash
