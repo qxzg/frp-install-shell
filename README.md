@@ -17,11 +17,11 @@ Server
 ### Install
 
 ```Bash
-wget --no-check-certificate https://raw.githubusercontent.com/qxzg/frp-install-shell/master/install-frps.sh -O ./install-frps.sh;chmod +x install-frps.sh
+wget https://raw.githubusercontent.com/qxzg/frp-install-shell/master/install-frps.sh -O ./install-frps.sh;chmod +x install-frps.sh
 ./install-frps.sh install
 ```
 
-### UnInstall
+### Uninstall
 ```Bash
     ./install-frps.sh uninstall
 ```
