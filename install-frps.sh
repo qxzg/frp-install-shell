@@ -181,7 +181,7 @@ fun_get_version(){
     fi
 }
 fun_getServer(){
-    def_server_url="github"
+    def_server_url="aliyun"
     echo ""
     echo -e "Please select ${program_name} download url:"
     echo -e "[1].aliyun (default)"
